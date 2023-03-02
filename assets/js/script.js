@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+    document.getElementById("answer-box").addEventListener('keypress', function(event){
+        if(event.key === "Enter"){
+            checkAnswer();
+        }
+    })
 
     runGame("addition");
 
@@ -25,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function() {
  */
 function runGame(gameType) {
 
+    document.getElementById("answer-box").value="";
+    document.getElementById("answer-box").focus();
     // Creates two random numbers between 1 and 25
     let num1 = Math.floor(Math.random() * 25) + 1;
     let num2 = Math.floor(Math.random() * 25) + 1;
@@ -33,7 +40,13 @@ function runGame(gameType) {
         displayAdditionQuestion(num1, num2);
     }
     else if (gameType === "subtract") {
-        displaySubtractQuestion(num1, num2);
+        while(num1 < num2){
+            num1 = Math.floor(Math.random() * 25) + 1;
+        }
+        if(num1 > num2){
+            displaySubtractQuestion(num1, num2);
+        }
+        
     }
     else if (gameType === "multiply") {
         displayMultiplyQuestion(num1, num2);
